@@ -1,0 +1,89 @@
+managed implementation in class zbp_vkjun01_r_so unique;
+strict ( 2 );
+
+with draft;
+define behavior for ZVKJUN01_R_SO //alias <alias_name>
+persistent table zvkjun01_dt_so
+draft table zvkjun01_df_so
+lock master total etag CreatedOn
+authorization master ( instance )
+etag master ChangedOn
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly : update ) Soid;
+  association _Item { create; }
+
+  action ( features : instance ) updateaction result [1]$self ;
+
+  validation validateCreatedOn on save { field SalesTimestamp; }
+
+  determination determineapprovalT on save { field SalesTimestamp;}
+
+  determination determineapprovalTMM on modify { field SalesTimestamp;}
+//
+  side effects {
+                  field SalesTimestamp affects field ApprovalTimestamp ;
+               }
+
+
+  draft action Edit;
+  draft action Resume;
+  draft action Discard;
+  draft action Activate;
+
+  draft determine action Prepare;
+
+  mapping for zvkjun01_dt_so
+    {
+      soid              = Soid;
+      Buyer             = Buyer;
+      SalesPerson       = sales_person;
+      SalesTimestamp    = sales_timestamp;
+      SalesManager      = sales_manager;
+      ApprovalTimestamp = approval_timestamp;
+      CreatedBy         = created_by;
+      CreatedOn         = created_on;
+      ChangedBy         = changed_by;
+      ChangedOn         = changed_on;
+      url               = url;
+    }
+
+
+}
+
+define behavior for ZVKJUN01_I_SOIT //alias <alias_name>
+persistent table zvkjun01_dt_soit
+draft table zvkjun01_df_soit
+lock dependent by _Header
+authorization dependent by _Header
+//etag master ChangedOn
+{
+  update;
+  delete;
+  field ( readonly ) Soid;
+  field ( readonly : update ) ItemId;
+  association _Header;
+
+  validation validateamount on save { field amount ;}
+
+  mapping for zvkjun01_dt_soit
+    {
+      soid              = Soid;
+      Itemid            = item_id;
+      Product           = product;
+      amount            = amount;
+      currency          = currency;
+      SalesPerson       = sales_person;
+      SalesTimestamp    = sales_timestamp;
+      SalesManager      = sales_manager;
+      ApprovalTimestamp = approval_timestamp;
+      ChangedBy         = changed_by;
+      ChangedOn         = changed_on;
+      image_item        = image_item;
+    }
+
+
+
+}

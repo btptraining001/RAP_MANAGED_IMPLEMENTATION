@@ -1,0 +1,187 @@
+@Metadata.layer :#CUSTOMER
+
+@UI.headerInfo :{
+
+
+// Appears as a Title for the Object page - which displays only 1 record
+typeName :'SalesOrder',
+typeNamePlural  :'SalesOrders',
+imageUrl  :'Url',
+description.url :'Url',
+title :{
+type :#STANDARD,
+label :'OrderTitle',
+
+// Appears as a Value - Title in Object page
+value :'Soid'
+},
+description :{
+type :#STANDARD,
+label :'OrderDescp',
+// Appears as a Value - Description in Object page
+value :'Buyer'
+}
+}
+
+
+annotate entity ZVKJUN01_CR_SO with
+{
+  @UI.facet :
+  [
+
+      {
+          id  :'SalesOrd',
+          purpose :#STANDARD,
+          position :10,
+          label :'Order Details',
+          type :#IDENTIFICATION_REFERENCE
+      },
+
+
+      {
+          id :'Customer',
+          purpose :#STANDARD,
+          position :15,
+          label :'Customer Details',
+          type :#IDENTIFICATION_REFERENCE,
+          targetElement :'_Cust'
+      },
+
+      {
+          id :'SalesOrdItem',
+          purpose :#STANDARD,
+          position :20,
+          label :'Item Details',
+          type :#LINEITEM_REFERENCE,
+          targetElement :'_Item'
+      },
+
+
+      {
+          // Search Term #DataPointRating
+          purpose :#HEADER,// or #STANDARD
+          type :#DATAPOINT_REFERENCE,
+          targetQualifier :'StarsValue',
+          position :5
+      },
+      
+
+      // Search Term #ColumnMicroChart
+      {
+          purpose :#HEADER,
+          type :#CHART_REFERENCE,
+          targetQualifier :'columnChart',
+          targetElement :'_Item',
+          position :40
+      },
+
+
+
+
+/* Facet for a Quick Order View */
+      {
+          type :#FIELDGROUP_REFERENCE,
+          label :'Order View',
+          targetQualifier :'data',
+          purpose :#QUICK_VIEW,          
+          position :80
+      }
+
+  ]
+
+  @UI.lineItem :[{position :10,label :'OrderNo'}]
+  @UI.identification :[{position :10,label :'OrderNo'}]
+  @UI.selectionField :[{position :10}]
+  @EndUserText.label :'OrderNo'
+  Soid;
+
+  @UI.lineItem :[{position :20,label :'CustomerNo'}]
+  @UI.identification :[{position :20,label :'CustomerNo'}]
+  Buyer;
+
+  @UI.lineItem :[{position :30,label :'Sales Person'}]
+  @UI.identification :[{position :30,label :'Sales Person'}]
+  // Search Term #HeaderFacet, #KeyValue
+  @UI.dataPoint :{
+  qualifier :'SalesPerson',
+  title :'Sales Person of the Month'
+
+  }
+
+  /* Quick View Target Qualifier - Fields */
+  @UI.fieldGroup :[{qualifier :'data',position :10}]
+  SalesPerson;
+
+  @UI.lineItem :[{position :40,label :'Sales Time'}]
+  @UI.identification :[{position :40,label :'Sales Time'}]
+
+  /* Quick View Target Qualifier - Fields */
+  @UI.fieldGroup :[{qualifier :'data',position :20}]
+  SalesTimestamp;
+
+  @UI.lineItem :[
+                  {position :50,label :'Sales Manager'}
+                  
+                  
+                ]
+  @UI.identification :[
+                        {position :50,label :'Sales Manager'}
+                      ]
+
+  /* Quick View Target Qualifier - Fields */
+  @UI.fieldGroup :[{qualifier :'data',position :30}]
+  SalesManager;
+
+  @UI.lineItem :[{position :60,label :'Approval Time'},
+                 { type : #FOR_ACTION, dataAction: 'updateaction', label: 'Update Action'  }]
+  @UI.identification :[{position :60,label :'Approval Time'},
+  
+                        { type : #FOR_ACTION, dataAction: 'updateaction', label: 'Update Action'  }]
+
+
+  /* Quick View Target Qualifier - Fields */
+  @UI.fieldGroup :[{qualifier :'data',position :40}]
+  ApprovalTimestamp;
+
+  @UI.lineItem :[{position :70,label :'System User'}]
+  @UI.identification :[{position :70,label :'System User'}]
+  @UI.selectionField :[{position :20}]
+  @EndUserText.label :'System User'
+  CreatedBy;
+
+  @UI.lineItem :[{position :80,label :'System Time'}]
+  @UI.identification :[{position :80,label :'System Time'}]
+  CreatedOn;
+
+  @UI.lineItem :[{position :90,label :'Change User'}]
+  @UI.identification :[{position :90,label :'Change User'}]
+  ChangedBy;
+
+  @UI.lineItem :[{position :100,label :'Change Time'}]
+  @UI.identification :[{position :100,label :'Change Time'}]
+  ChangedOn;
+
+  @EndUserText.label :'ImageUrl'
+  Url;
+  /* Associations */
+  @EndUserText.label :'ItemEntity'
+  _Cust;
+
+  @EndUserText.label :'ItemEntity'
+  _Item;
+
+  @UI :{
+      // Search Term #DataPointRating, #DataPointRatingTable
+      dataPoint :
+      {
+          qualifier :'StarsValue',
+          targetValue :5,
+          visualization :#RATING,
+          title :'Customer Rating'          
+          
+      }
+  }
+  CustomerRating;
+
+
+}

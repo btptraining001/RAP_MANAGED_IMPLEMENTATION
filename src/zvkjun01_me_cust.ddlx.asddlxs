@@ -1,0 +1,21 @@
+@Metadata.layer:#CUSTOMER
+annotate entity ZVKJUN01_I_CUST
+with
+{
+@UI.identification:[{position:10,label:'CustomerNo'}]
+CustId;
+@UI.identification:[{position:10,label:'CustomerName'}]
+Name;
+@UI.identification:[{position:10,label:'CustomerComapanyName'}]
+CompanyName;
+
+@UI.identification:[{position:10,label:'CustomerCountry'}]
+Country;
+
+@UI.identification:[{position:10,label:'CustomerCity'}]
+City;
+
+@UI.identification:[{position:10,label:'CustomerMobile'}]
+Mobile;
+
+}

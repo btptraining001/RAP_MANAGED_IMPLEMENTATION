@@ -1,0 +1,16 @@
+@Metadata.layer:#CUSTOMER
+annotate entity ZVKJUN01_I_INV_UM with
+{
+  @UI.lineItem:[{position:10,label:'OrderNo'}]
+  Soid;
+  @UI.lineItem:[{position:20,label:'ItemId'}]
+  ItemId;
+  @UI.lineItem:[{position:30,label:'InvoiceNo'}]
+  InvoiceId;
+  @UI.lineItem:[{position:30,label:'Customer'}]
+  Buyer;
+  @UI.lineItem:[{position:30,label:'Billed Amount'}]
+  BillingAmt;
+  @UI.lineItem:[{position:30,label:'Customer Currency'}]
+  Currency;
+}

@@ -1,0 +1,143 @@
+@Metadata.layer :#CUSTOMER
+
+@UI.headerInfo :{
+typeName :'Sales Order Item',
+typeNamePlural :'Sales Order Items',
+title :{
+type :#STANDARD,
+label :'Sales Order Items',
+value :'ItemId'
+
+},
+description :{
+type :#STANDARD,
+label :'Sales Order Items',
+value :'Product'
+
+}
+}
+@Search.searchable :true
+
+@UI.chart :[
+    {
+        qualifier :'columnChart',
+        title :'Price Chart ',
+//        description :'This is a micro chart',
+        chartType :#COLUMN,
+        measures :['Amount'],
+        dimensions :['Product'],
+        measureAttributes :[
+            {
+                measure :'Amount',
+                role :#AXIS_1,
+                asDataPoint :true
+            }
+        ]
+       }
+    ]
+
+
+annotate entity ZVKJUN01_CI_SOIT with
+{
+
+/* Facet for Delivery Schedule */
+  @UI.facet :[
+       {
+          id :'Invoice',
+          purpose :#STANDARD,
+          position :10,
+          label :'DeliveryDetails',
+          type :#LINEITEM_REFERENCE,
+          targetElement :'_DeliveryS'
+       },
+
+/* Facet for Invoice*/
+      {
+          id :'Customer',
+          purpose :#STANDARD,
+          position :15,
+          label :'Invoice Details',
+          type :#LINEITEM_REFERENCE,
+          targetElement :'_Invoice'
+      }
+  ]
+
+
+  @UI.lineItem :[{label :'Sales Order ID',position :10}]
+  @EndUserText.label :'Order Id'
+  @UI.selectionField :[{position :5}]
+
+  Soid;
+
+  @UI.lineItem :[{label :'Sales Order ItemId',position :20}]
+  @Search.defaultSearchElement :true
+  ItemId;
+
+  @UI.lineItem :[{label :'Product',position :30}]
+
+  @EndUserText.label :'Product'
+  @UI.selectionField :[{position :9}]
+  @Consumption.valueHelpDefinition :[{entity :{
+  name :'ZVKJUN01_I_PROD',
+  element :'ProdId'
+  }}]
+  @Search.defaultSearchElement :true
+  Product;
+
+  @UI.lineItem :[{label :'Product Price',position :40}]
+  @UI.dataPoint :{
+  qualifier :'Amount',
+  criticality :'ItemId'
+  }
+  Amount;
+
+  @UI.lineItem :[{label :'Product Currency',position :50}]
+  @Search.defaultSearchElement :true
+  Currency;
+
+  @UI.lineItem :[{label :'Sales Executinve',position :60}]
+  SalesPerson;
+
+  @UI.lineItem :[{label :'Sales Time',position :70}]
+  SalesTimestamp;
+
+  @UI.lineItem :[{label :'Sales Manager',position :80}]
+  SalesManager;
+
+  @UI.lineItem :[{label :'Approval Time',position :90}]
+  ApprovalTimestamp;
+
+  @UI.lineItem :[{label :'System User',position :100}]
+  @UI.selectionField :[{position :15}]
+  @EndUserText.label :'System User'
+  @Search.defaultSearchElement :true
+  ChangedBy;
+
+  @UI.lineItem :[{label :'System Date',position :110}]
+  ChangedOn;
+
+
+  // Search Term #Image
+  @UI.lineItem :[
+  {
+  cssDefault.width :'5em',
+  position :1,
+  importance :#HIGH,
+  label :'Image'
+  }
+  ]
+  @EndUserText.quickInfo :'(#Image)'
+  image_item;
+
+
+  /* Associations */
+  @EndUserText.label :'Product'      
+      _Prod;
+
+  @EndUserText.label :'Delivery'
+  _DeliveryS;
+
+  @EndUserText.label :'Invoice'
+  _Invoice;
+
+}

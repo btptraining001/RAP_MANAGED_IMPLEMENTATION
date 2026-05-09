@@ -1,0 +1,17 @@
+@Metadata.layer:#CUSTOMER
+annotate entity ZVKJUN01_I_DLSH with
+{
+  @UI.lineItem:[{position:10,label:'OrderNo'}]
+  Soid;
+  @UI.lineItem:[{position:20,label:'ItemId'}]
+  ItemId;
+  @UI.lineItem:[{position:30,label:'DeliveryNo'}]
+  DelvId;
+  @UI.lineItem:[{position:40,label:'Deliver Product'}]
+  Product;
+  @UI.lineItem:[{position:50,label:'Deliver Qty'}]
+  Quantity;
+  @UI.lineItem:[{position:60,label:'Delivery Date'}]
+  DeliveryDate;
+
+}
