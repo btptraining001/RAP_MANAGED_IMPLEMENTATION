@@ -1,0 +1,9 @@
+@EndUserText.label: 'Service Defination : Sales App Transaction V4'
+define service ZVKDEC01_SD_SALESAPP_V4 {
+  expose ZVKJUN01_CR_SO;
+  expose ZVKJUN01_CI_SOIT;
+  expose ZVKJUN01_I_CUST;
+  expose ZVKJUN01_I_PROD;
+  expose ZVKJUN01_I_DLSH;
+  expose ZVKJUN01_I_INV;
+}
